@@ -39,11 +39,18 @@ body {
   color: var(--foreground);
 }
 
-.grad-text {
-  background: linear-gradient(90deg, var(--color-blue), var(--color-green));
+.grad-text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-blue),
+    var(--color-green),
+    var(--color-blue)
+  );
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: shimmer 4s linear infinite;
 }
 
 .grad-bg {

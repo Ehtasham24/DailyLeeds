@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import RevealGroup from "@/components/RevealGroup";
 import SectionHeading from "@/components/SectionHeading";
+import SpotlightCard from "@/components/SpotlightCard";
 import { fadeUp } from "@/lib/motion";
 
 const TESTIMONIALS = [
@@ -37,25 +38,27 @@ export default function Testimonials() {
 
         <RevealGroup className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {TESTIMONIALS.map((t) => (
-            <motion.div
-              key={t.name}
-              variants={fadeUp}
-              whileHover={{ y: -5 }}
-              className="rounded-2xl border border-line bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-[0_18px_40px_rgba(18,53,127,.08)]"
-            >
-              <div className="mb-3 tracking-[.1em] text-[#F5A623]">
-                {"★".repeat(5)}
-              </div>
-              <p className="italic text-ink">&ldquo;{t.quote}&rdquo;</p>
-              <div className="mt-5 flex items-center gap-[.7rem]">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gradient-to-r from-blue to-green font-bold text-white">
-                  {t.initials}
-                </span>
-                <div>
-                  <b className="block text-[.92rem]">{t.name}</b>
-                  <span className="text-[.8rem] text-ink-soft">{t.role}</span>
+            <motion.div key={t.name} variants={fadeUp}>
+              <SpotlightCard
+                spotlightColor="rgba(245,166,35,.12)"
+                className="h-full rounded-2xl border border-line bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-[0_18px_40px_rgba(18,53,127,.08)]"
+              >
+                <div className="mb-3 tracking-[.1em] text-[#F5A623]">
+                  {"★".repeat(5)}
                 </div>
-              </div>
+                <p className="italic text-ink">&ldquo;{t.quote}&rdquo;</p>
+                <div className="mt-5 flex items-center gap-[.7rem]">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gradient-to-r from-blue to-green font-bold text-white">
+                    {t.initials}
+                  </span>
+                  <div>
+                    <b className="block text-[.92rem]">{t.name}</b>
+                    <span className="text-[.8rem] text-ink-soft">
+                      {t.role}
+                    </span>
+                  </div>
+                </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </RevealGroup>

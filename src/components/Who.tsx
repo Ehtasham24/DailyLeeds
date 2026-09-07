@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import RevealGroup from "@/components/RevealGroup";
 import SectionHeading from "@/components/SectionHeading";
+import SpotlightCard from "@/components/SpotlightCard";
 import { fadeUp } from "@/lib/motion";
 
 const CARDS = [
@@ -35,17 +36,22 @@ export default function Who() {
 
         <RevealGroup className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {CARDS.map((card) => (
-            <motion.div
-              key={card.title}
-              variants={fadeUp}
-              whileHover={{ y: -6 }}
-              className="rounded-2xl border border-line p-8 text-center transition-shadow duration-300 hover:border-transparent hover:shadow-[0_18px_40px_rgba(18,53,127,.1)]"
-            >
-              <div className="text-[2.4rem]">{card.emoji}</div>
-              <h3 className="mb-2 mt-3 text-[1.25rem] font-bold">
-                {card.title}
-              </h3>
-              <p className="text-[.98rem] text-ink-soft">{card.text}</p>
+            <motion.div key={card.title} variants={fadeUp}>
+              <SpotlightCard
+                spotlightColor="rgba(47,125,225,.1)"
+                className="h-full rounded-2xl border border-line p-8 text-center transition-shadow duration-300 hover:border-transparent hover:shadow-[0_18px_40px_rgba(18,53,127,.1)]"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.15, rotate: -6 }}
+                  className="text-[2.4rem]"
+                >
+                  {card.emoji}
+                </motion.div>
+                <h3 className="mb-2 mt-3 text-[1.25rem] font-bold">
+                  {card.title}
+                </h3>
+                <p className="text-[.98rem] text-ink-soft">{card.text}</p>
+              </SpotlightCard>
             </motion.div>
           ))}
         </RevealGroup>

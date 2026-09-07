@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Nav from "@/components/Nav";
+import PageTransition from "@/components/PageTransition";
+import ScrollProgress from "@/components/ScrollProgress";
 import "./globals.css";
 
 const inter = Inter({
@@ -9,7 +12,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "DailyLeads — Local leads, delivered daily",
+  title: {
+    default: "DailyLeads — Local leads, delivered daily",
+    template: "%s — DailyLeads",
+  },
   description:
     "Done-for-you local lead generation for plumbers, electricians and cleaners. At least one qualified customer lead a day — ads run on your own page.",
   openGraph: {
@@ -30,7 +36,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-light font-sans text-ink antialiased">
-        {children}
+        <ScrollProgress />
+        <Nav />
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );

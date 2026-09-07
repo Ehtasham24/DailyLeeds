@@ -80,7 +80,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="bg-white py-20">
+    <section className="bg-white py-20">
       <div className="mx-auto max-w-[1120px] px-6">
         <SectionHeading eyebrow="Questions" title="Good to know" />
 

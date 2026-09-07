@@ -2,20 +2,31 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import Button from "@/components/Button";
 import Logo from "@/components/Logo";
-import { scrollToId } from "@/lib/scroll";
 
 const LINKS = [
-  { href: "#how", label: "How It Works" },
-  { href: "#why", label: "Why Us" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#faq", label: "FAQ" },
+  { href: "/how-it-works", label: "How It Works" },
+  { href: "/why-us", label: "Why Us" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/faq", label: "FAQ" },
 ];
 
 export default function Nav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // Close the mobile menu whenever the route changes (adjusted during
+  // render, per React's guidance, rather than in an effect).
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
+    setOpen(false);
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -34,24 +45,30 @@ export default function Nav() {
         <Logo />
 
         <nav className="hidden items-center gap-8 md:flex">
-          {LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="group relative text-[.95rem] font-semibold text-muted-navy transition-colors hover:text-white"
-            >
-              {link.label}
-              <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-blue to-green transition-all duration-300 group-hover:w-full" />
-            </a>
-          ))}
+          {LINKS.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`group relative text-[.95rem] font-semibold transition-colors ${
+                  active ? "text-white" : "text-muted-navy hover:text-white"
+                }`}
+              >
+                {link.label}
+                <span
+                  className={`absolute -bottom-1 left-0 h-[2px] bg-gradient-to-r from-blue to-green transition-all duration-300 ${
+                    active ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </nav>
 
-        <button
-          onClick={() => scrollToId("contact")}
-          className="hidden rounded-xl bg-green px-[1.15rem] py-[.6rem] text-[.9rem] font-bold text-white shadow-[0_8px_20px_rgba(27,180,122,.35)] transition-transform hover:-translate-y-0.5 hover:bg-[#159a67] md:inline-flex"
-        >
+        <Button href="/contact" size="sm" className="hidden md:inline-block">
           Get Started
-        </button>
+        </Button>
 
         <button
           aria-label="Menu"
@@ -73,24 +90,19 @@ export default function Nav() {
           >
             <div className="flex flex-col gap-1 px-6 py-4">
               {LINKS.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-lg px-2 py-3 font-semibold text-muted-navy hover:bg-white/5 hover:text-white"
+                  className={`rounded-lg px-2 py-3 font-semibold hover:bg-white/5 hover:text-white ${
+                    pathname === link.href ? "text-white" : "text-muted-navy"
+                  }`}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  scrollToId("contact");
-                }}
-                className="mt-2 rounded-xl bg-green px-4 py-3 text-center font-bold text-white"
-              >
+              <Button href="/contact" className="mt-2 w-full">
                 Get Started
-              </button>
+              </Button>
             </div>
           </motion.nav>
         )}

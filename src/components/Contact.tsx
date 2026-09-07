@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
+import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import { fadeUp } from "@/lib/motion";
@@ -44,7 +45,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="bg-light py-20">
+    <section className="bg-light py-20">
       <div className="mx-auto max-w-[1120px] px-6">
         <SectionHeading
           eyebrow="Get started"
@@ -120,14 +121,9 @@ export default function Contact() {
                     </motion.div>
                   ))}
                 </div>
-                <motion.button
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  type="submit"
-                  className="mt-5 w-full rounded-xl bg-green px-6 py-[.85rem] text-center font-bold text-white shadow-[0_8px_20px_rgba(27,180,122,.35)] transition-colors hover:bg-[#159a67]"
-                >
+                <Button type="submit" className="mt-5 w-full">
                   Get my free week
-                </motion.button>
+                </Button>
               </motion.form>
             )}
           </AnimatePresence>

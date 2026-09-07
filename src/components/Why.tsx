@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import RevealGroup from "@/components/RevealGroup";
 import SectionHeading from "@/components/SectionHeading";
+import SpotlightCard from "@/components/SpotlightCard";
 import { fadeUp } from "@/lib/motion";
 
 const ITEMS = [
@@ -27,7 +28,7 @@ const ITEMS = [
 
 export default function Why() {
   return (
-    <section id="why" className="bg-white py-20">
+    <section className="bg-white py-20">
       <div className="mx-auto max-w-[1120px] px-6">
         <SectionHeading
           eyebrow="Why DailyLeads"
@@ -36,21 +37,21 @@ export default function Why() {
 
         <RevealGroup className="mx-auto grid max-w-[900px] grid-cols-1 gap-[22px] sm:grid-cols-2">
           {ITEMS.map((item) => (
-            <motion.div
-              key={item.title}
-              variants={fadeUp}
-              whileHover={{ y: -4 }}
-              className="flex items-start gap-4 rounded-2xl border border-line bg-light p-[26px]"
-            >
-              <span className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[9px] bg-green/[.14] text-green">
-                <Check size={18} strokeWidth={2.5} />
-              </span>
-              <div>
-                <h3 className="mb-1 text-[1.08rem] font-bold">
-                  {item.title}
-                </h3>
-                <p className="text-[.95rem] text-ink-soft">{item.text}</p>
-              </div>
+            <motion.div key={item.title} variants={fadeUp}>
+              <SpotlightCard
+                spotlightColor="rgba(27,180,122,.12)"
+                className="flex h-full items-start gap-4 rounded-2xl border border-line bg-light p-[26px]"
+              >
+                <span className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[9px] bg-green/[.14] text-green">
+                  <Check size={18} strokeWidth={2.5} />
+                </span>
+                <div>
+                  <h3 className="mb-1 text-[1.08rem] font-bold">
+                    {item.title}
+                  </h3>
+                  <p className="text-[.95rem] text-ink-soft">{item.text}</p>
+                </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </RevealGroup>
