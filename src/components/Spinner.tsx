@@ -3,49 +3,30 @@
 import { motion } from "framer-motion";
 import LogoMark from "@/components/LogoMark";
 
-// The same three colors used for the plumber/electrician/cleaner icons
-// elsewhere on the site — three dots for three trades, bouncing in
-// like leads arriving one after another.
-const DOTS = [
-  { color: "#2F7DE1", delay: 0 },
-  { color: "#F5A623", delay: 0.12 },
-  { color: "#1BB47A", delay: 0.24 },
-];
-
-const BOUNCE_EASE: [number, number, number, number] = [0.34, 1.56, 0.64, 1];
-
-export default function Spinner({ size = 56 }: { size?: number }) {
-  const dot = Math.max(6, size * 0.16);
-
+/** The pin spins in place on its vertical axis, like a coin or a
+ *  weathervane — with a shadow beneath that squashes in sync to sell
+ *  the 3D flip. Inspired by Dribbble's "LittlePin Spinner". */
+export default function Spinner({ size = 64 }: { size?: number }) {
   return (
     <div
       role="status"
       aria-label="Loading"
-      className="flex flex-col items-center gap-4"
+      className="flex flex-col items-center gap-3"
     >
       <motion.div
-        animate={{ scale: [1, 1.08, 1] }}
-        transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformPerspective: 300 }}
+        animate={{ rotateY: [0, 360] }}
+        transition={{ duration: 1.1, repeat: Infinity, ease: "linear" }}
       >
-        <LogoMark size={size * 0.6} />
+        <LogoMark size={size} />
       </motion.div>
-
-      <div className="flex items-end gap-[.5em]" style={{ height: size * 0.4 }}>
-        {DOTS.map((d) => (
-          <motion.span
-            key={d.color}
-            className="rounded-full"
-            style={{ width: dot, height: dot, background: d.color }}
-            animate={{ y: [0, -size * 0.32, 0], scale: [1, 1.2, 1] }}
-            transition={{
-              duration: 0.9,
-              repeat: Infinity,
-              delay: d.delay,
-              ease: BOUNCE_EASE,
-            }}
-          />
-        ))}
-      </div>
+      <motion.div
+        aria-hidden
+        className="rounded-full bg-navy/15"
+        style={{ width: size * 0.5, height: size * 0.11 }}
+        animate={{ scaleX: [1, 0.2, 1], opacity: [0.8, 0.4, 0.8] }}
+        transition={{ duration: 1.1, repeat: Infinity, ease: "linear" }}
+      />
     </div>
   );
 }
