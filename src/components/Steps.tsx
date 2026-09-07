@@ -6,30 +6,7 @@ import SectionHeading from "@/components/SectionHeading";
 import SpotlightCard from "@/components/SpotlightCard";
 import StepsConnector from "@/components/StepsConnector";
 import { fadeUp } from "@/lib/motion";
-
-const STEPS = [
-  {
-    num: "1",
-    title: "We set up your ads",
-    text: (
-      <>
-        We build targeted Facebook &amp; Instagram ads that run on{" "}
-        <strong>your own business page</strong> — so they look genuine and
-        local.
-      </>
-    ),
-  },
-  {
-    num: "2",
-    title: "Locals reach out",
-    text: "Homeowners in your area who need your service send their name, job type, and phone number.",
-  },
-  {
-    num: "3",
-    title: "You book the job",
-    text: "Their details land with you instantly. Call fast, quote, and win the work.",
-  },
-];
+import { STEPS } from "@/lib/content";
 
 export default function Steps() {
   return (

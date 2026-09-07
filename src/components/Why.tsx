@@ -1,26 +1,27 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import RevealGroup from "@/components/RevealGroup";
+import FeatureGrid from "@/components/FeatureGrid";
 import SectionHeading from "@/components/SectionHeading";
-import SpotlightCard from "@/components/SpotlightCard";
-import { fadeUp } from "@/lib/motion";
 
 const ITEMS = [
   {
+    icon: <Check size={18} strokeWidth={2.5} />,
     title: "At least one lead a day",
     text: "A steady, predictable flow of local jobs — not feast or famine.",
   },
   {
+    icon: <Check size={18} strokeWidth={2.5} />,
     title: "Ads on your own page",
     text: "Genuine and trusted by your community — not some faceless agency page.",
   },
   {
+    icon: <Check size={18} strokeWidth={2.5} />,
     title: "You keep everything",
     text: "Your page, your pixel, your leads. If you ever leave, it all stays yours.",
   },
   {
+    icon: <Check size={18} strokeWidth={2.5} />,
     title: "Zero marketing work",
     text: "Done-for-you from setup to optimization. You just answer the phone.",
   },
@@ -34,27 +35,7 @@ export default function Why() {
           eyebrow="Why DailyLeads"
           title="Leads you own, results you can see"
         />
-
-        <RevealGroup className="mx-auto grid max-w-[900px] grid-cols-1 gap-[22px] sm:grid-cols-2">
-          {ITEMS.map((item) => (
-            <motion.div key={item.title} variants={fadeUp}>
-              <SpotlightCard
-                spotlightColor="rgba(27,180,122,.12)"
-                className="flex h-full items-start gap-4 rounded-2xl border border-line bg-light p-[26px]"
-              >
-                <span className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[9px] bg-green/[.14] text-green">
-                  <Check size={18} strokeWidth={2.5} />
-                </span>
-                <div>
-                  <h3 className="mb-1 text-[1.08rem] font-bold">
-                    {item.title}
-                  </h3>
-                  <p className="text-[.95rem] text-ink-soft">{item.text}</p>
-                </div>
-              </SpotlightCard>
-            </motion.div>
-          ))}
-        </RevealGroup>
+        <FeatureGrid items={ITEMS} spotlightColor="rgba(27,180,122,.12)" />
       </div>
     </section>
   );

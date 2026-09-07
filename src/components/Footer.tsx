@@ -1,25 +1,32 @@
+"use client";
+
+import Link from "next/link";
 import Logo from "@/components/Logo";
+import { useNavigationStatus } from "@/components/NavigationProvider";
 
 const FOOT_LINKS = [
   {
     heading: "Company",
     links: [
-      { href: "#how", label: "How it works" },
-      { href: "#why", label: "Why us" },
-      { href: "#pricing", label: "Pricing" },
+      { href: "/how-it-works", label: "How it works" },
+      { href: "/why-us", label: "Why us" },
+      { href: "/pricing", label: "Pricing" },
+      { href: "/faq", label: "FAQ" },
     ],
   },
   {
     heading: "Contact",
     links: [
-      { href: "#contact", label: "Get started" },
+      { href: "/contact", label: "Get started" },
       { href: "mailto:hello@getdailyleads.com", label: "hello@getdailyleads.com" },
-      { href: "#", label: "(555) 000-0000" },
+      { href: "tel:+15550000000", label: "(555) 000-0000" },
     ],
   },
 ];
 
 export default function Footer() {
+  const { beginNavigation } = useNavigationStatus();
+
   return (
     <footer className="bg-navy-deep pb-8 pt-13 text-muted-navy">
       <div className="mx-auto max-w-[1120px] px-6">
@@ -39,13 +46,16 @@ export default function Footer() {
                   {col.heading}
                 </b>
                 {col.links.map((link) => (
-                  <a
+                  <Link
                     key={link.label}
                     href={link.href}
+                    onClick={() =>
+                      link.href.startsWith("/") && beginNavigation(link.href)
+                    }
                     className="mb-2 block text-[.92rem] transition-colors hover:text-white"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             ))}

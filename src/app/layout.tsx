@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Nav from "@/components/Nav";
+import { NavigationProvider } from "@/components/NavigationProvider";
+import NavSpinnerOverlay from "@/components/NavSpinnerOverlay";
 import PageTransition from "@/components/PageTransition";
 import ScrollProgress from "@/components/ScrollProgress";
 import "./globals.css";
@@ -34,11 +36,18 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${inter.variable} h-full`}
+      data-scroll-behavior="smooth"
+    >
       <body className="min-h-full flex flex-col bg-light font-sans text-ink antialiased">
-        <ScrollProgress />
-        <Nav />
-        <PageTransition>{children}</PageTransition>
+        <NavigationProvider>
+          <ScrollProgress />
+          <NavSpinnerOverlay />
+          <Nav />
+          <PageTransition>{children}</PageTransition>
+        </NavigationProvider>
       </body>
     </html>
   );

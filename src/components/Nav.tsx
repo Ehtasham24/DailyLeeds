@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Button from "@/components/Button";
 import Logo from "@/components/Logo";
+import { useNavigationStatus } from "@/components/NavigationProvider";
 
 const LINKS = [
   { href: "/how-it-works", label: "How It Works" },
@@ -17,6 +18,7 @@ const LINKS = [
 
 export default function Nav() {
   const pathname = usePathname();
+  const { beginNavigation } = useNavigationStatus();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -51,6 +53,7 @@ export default function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={() => beginNavigation(link.href)}
                 className={`group relative text-[.95rem] font-semibold transition-colors ${
                   active ? "text-white" : "text-muted-navy hover:text-white"
                 }`}
@@ -93,6 +96,7 @@ export default function Nav() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  onClick={() => beginNavigation(link.href)}
                   className={`rounded-lg px-2 py-3 font-semibold hover:bg-white/5 hover:text-white ${
                     pathname === link.href ? "text-white" : "text-muted-navy"
                   }`}

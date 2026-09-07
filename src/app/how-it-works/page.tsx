@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Steps from "@/components/Steps";
+import WhatsIncluded from "@/components/WhatsIncluded";
+import Rollout from "@/components/Rollout";
 import CtaBand from "@/components/CtaBand";
 import Footer from "@/components/Footer";
 
@@ -14,6 +16,8 @@ export default function HowItWorksPage() {
     <>
       <main>
         <Steps />
+        <WhatsIncluded />
+        <Rollout />
         <CtaBand />
       </main>
       <Footer />

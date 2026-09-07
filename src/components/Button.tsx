@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { useNavigationStatus } from "@/components/NavigationProvider";
 import { buttonHover, buttonSpring, buttonTap } from "@/lib/motion";
 
 const MotionLink = motion.create(Link);
@@ -13,6 +14,8 @@ const VARIANTS = {
     "bg-green text-white shadow-[0_8px_20px_rgba(27,180,122,.35)] transition-colors hover:bg-[#159a67]",
   ghost:
     "border-[1.5px] border-white/45 text-white transition-colors hover:border-white hover:bg-white/[.08]",
+  outline:
+    "border-[1.5px] border-navy/25 text-navy transition-colors hover:border-navy hover:bg-navy/[.04]",
 } as const;
 
 const SIZES = {
@@ -40,12 +43,16 @@ export default function Button({
   className?: string;
 }) {
   const classes = `inline-block text-center ${SIZES[size]} ${VARIANTS[variant]} ${className}`;
+  const { beginNavigation } = useNavigationStatus();
 
   if (href) {
     return (
       <MotionLink
         href={href}
-        onClick={onClick}
+        onClick={() => {
+          beginNavigation(href);
+          onClick?.();
+        }}
         whileHover={buttonHover}
         whileTap={buttonTap}
         transition={buttonSpring}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Pricing from "@/components/Pricing";
+import PricingFaq from "@/components/PricingFaq";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export default function PricingPage() {
     <>
       <main>
         <Pricing />
+        <PricingFaq />
       </main>
       <Footer />
     </>

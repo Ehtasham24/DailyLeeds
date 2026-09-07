@@ -4,9 +4,9 @@ import { useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import Button from "@/components/Button";
+import ContactInfoCards from "@/components/ContactInfoCards";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
-import { fadeUp } from "@/lib/motion";
 
 type Field = {
   id: string;
@@ -53,6 +53,8 @@ export default function Contact() {
           description="Tell us about your business and we'll set up your free first week of local leads."
         />
 
+        <ContactInfoCards />
+
         <Reveal
           delay={0.1}
           className="mx-auto max-w-[620px] rounded-[24px] border border-line bg-white p-10 shadow-[0_20px_50px_rgba(18,53,127,.08)]"
@@ -80,9 +82,8 @@ export default function Contact() {
               >
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {FIELDS.map((field) => (
-                    <motion.div
+                    <div
                       key={field.id}
-                      variants={fadeUp}
                       className={`flex flex-col gap-[.4rem] ${
                         field.full ? "sm:col-span-2" : ""
                       }`}
@@ -118,7 +119,7 @@ export default function Contact() {
                           className={inputClasses}
                         />
                       )}
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
                 <Button type="submit" className="mt-5 w-full">
