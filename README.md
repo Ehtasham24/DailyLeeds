@@ -5,6 +5,8 @@ built with [Next.js](https://nextjs.org) (App Router), TypeScript, Tailwind
 CSS v4, and [Framer Motion](https://www.framer.com/motion/) for scroll and
 interaction animations.
 
+**Live:** https://ehtasham24.github.io/DailyLeeds/
+
 ## Getting Started
 
 ```bash
