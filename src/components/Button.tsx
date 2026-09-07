@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { buttonHover, buttonSpring, buttonTap } from "@/lib/motion";
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 const MotionButton = motion.button;
 
 const VARIANTS = {
