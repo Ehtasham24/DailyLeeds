@@ -7,6 +7,7 @@ import Button from "@/components/Button";
 import ContactInfoCards from "@/components/ContactInfoCards";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
+import { isEmailjsConfigured, sendLeadEmails } from "@/lib/emailjs";
 
 type Field = {
   id: string;
@@ -33,10 +34,6 @@ const FIELDS: Field[] = [
 const inputClasses =
   "rounded-[10px] border-[1.5px] border-line bg-white px-[.9rem] py-[.8rem] text-base text-ink transition-[border-color,box-shadow] focus:border-blue focus:shadow-[0_0_0_3px_rgba(47,125,225,.15)] focus:outline-none";
 
-// Set in .env.local for dev and as a repo secret (NEXT_PUBLIC_FORM_ENDPOINT)
-// injected at build time for the GitHub Pages deploy — see README.
-const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
-
 type Status = "idle" | "submitting" | "success" | "error";
 
 export default function Contact() {
@@ -46,11 +43,11 @@ export default function Contact() {
     e.preventDefault();
     const form = e.currentTarget;
 
-    if (!FORM_ENDPOINT) {
-      // No form backend configured yet — keep the page usable in local
+    if (!isEmailjsConfigured) {
+      // No email backend configured yet — keep the page usable in local
       // preview / before setup, but make the gap obvious in the console.
       console.warn(
-        "NEXT_PUBLIC_FORM_ENDPOINT is not set — submissions aren't going anywhere. See README for setup."
+        "EmailJS is not configured — submissions aren't going anywhere. See README for setup."
       );
       setStatus("success");
       return;
@@ -58,25 +55,8 @@ export default function Contact() {
 
     setStatus("submitting");
     try {
-      const data = new FormData(form);
-      // Formspree-specific fields: a readable subject for the email you
-      // get, and an autoresponse sent back to the lead's own address
-      // (the "email" field below is auto-detected as the reply-to).
-      data.set(
-        "_subject",
-        `New DailyLeads inquiry — ${data.get("biz") || "website"}`
-      );
-      data.set(
-        "_autoresponse",
-        "Thanks for reaching out to DailyLeads! We've received your query, and our team will get in touch within 24 hours to set up your free first week of local leads."
-      );
-
-      const res = await fetch(FORM_ENDPOINT, {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
-      setStatus(res.ok ? "success" : "error");
+      await sendLeadEmails(form);
+      setStatus("success");
     } catch {
       setStatus("error");
     }

@@ -19,26 +19,46 @@ Open [http://localhost:3000](http://localhost:3000) to view it.
 ## Contact form setup
 
 The site is a static export (no server), so the contact form (`/contact`)
-posts directly to [Formspree](https://formspree.io) from the browser, which
-emails you the submission and sends the lead an automatic confirmation.
+sends straight from the browser via [EmailJS](https://www.emailjs.com),
+which relays through an email account you connect (Gmail, Outlook, etc.).
+Two templates fire on every submission: one emails you the lead, the other
+auto-replies to the lead. EmailJS's free tier (200 emails/month) covers
+both for free — unlike most form-backend services, which gate the
+auto-reply to a paid plan.
 
-1. Sign up at [formspree.io](https://formspree.io) with the email you want
-   leads sent to, and confirm that email.
-2. Create a new form and copy its endpoint, e.g.
-   `https://formspree.io/f/xxxxxxxx`.
-3. **Local dev:** copy `.env.local.example` to `.env.local` and paste the
-   endpoint into `NEXT_PUBLIC_FORM_ENDPOINT`.
-4. **Deployed site:** add a repo secret named `FORM_ENDPOINT` (Settings →
-   Secrets and variables → Actions → New repository secret) with the same
-   endpoint — the deploy workflow passes it through as
-   `NEXT_PUBLIC_FORM_ENDPOINT` at build time.
+1. Sign up at [emailjs.com](https://www.emailjs.com).
+2. **Email Services** → add your Gmail/Outlook/etc. account — this becomes
+   your `Service ID`.
+3. **Email Templates** → create two templates (their form fields become
+   `{{biz}}`, `{{name}}`, `{{service}}`, `{{city}}`, `{{phone}}`, `{{email}}`):
 
-Until this is set, submissions just show the success message locally
-without sending anywhere (a console warning says so).
+   - **Notify** (to you) — Note its `Template ID`.
+     - To Email: your own email address (fixed)
+     - Reply To: `{{email}}`
+     - Subject: `New DailyLeads inquiry — {{biz}}`
+     - Content: list out `{{name}}`, `{{service}}`, `{{city}}`, `{{phone}}`,
+       `{{email}}`
 
-The automatic reply to the lead uses Formspree's autoresponse feature,
-which may require a paid Formspree plan depending on your account — check
-your dashboard if the lead doesn't receive it.
+   - **Confirm** (to the lead) — Note its `Template ID`.
+     - To Email: `{{email}}`
+     - Subject: `We've received your request — DailyLeads`
+     - Content: "Hi {{name}}, thanks for reaching out to DailyLeads! We've
+       received your query and our team will get in touch within 24 hours
+       to set up your free first week of local leads."
+
+4. **Account** → General → copy your `Public Key`.
+5. **Local dev:** copy `.env.local.example` to `.env.local` and fill in the
+   Service ID, both Template IDs, and the Public Key.
+6. **Deployed site:** add four repo secrets (Settings → Secrets and
+   variables → Actions → New repository secret): `EMAILJS_SERVICE_ID`,
+   `EMAILJS_TEMPLATE_NOTIFY_ID`, `EMAILJS_TEMPLATE_CONFIRM_ID`,
+   `EMAILJS_PUBLIC_KEY` — the deploy workflow passes them through as
+   `NEXT_PUBLIC_*` at build time.
+
+Until these are set, submissions just show the success message locally
+without sending anywhere (a console warning says so). A failed confirmation
+email never blocks the submission — only the notify-to-you email has to
+succeed for the form to report success.
 
 ## Stack
 
@@ -47,6 +67,7 @@ your dashboard if the lead doesn't receive it.
 - **Framer Motion** — scroll-triggered reveals, staggered grids, hero blobs,
   animated FAQ accordion, mobile nav transitions
 - **lucide-react** — icons
+- **EmailJS** — client-side contact form delivery (no server)
 
 ## Structure
 
