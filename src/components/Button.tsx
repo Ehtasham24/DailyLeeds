@@ -33,6 +33,7 @@ export default function Button({
   variant = "primary",
   size = "md",
   className = "",
+  disabled = false,
 }: {
   children: ReactNode;
   href?: string;
@@ -41,8 +42,11 @@ export default function Button({
   variant?: keyof typeof VARIANTS;
   size?: keyof typeof SIZES;
   className?: string;
+  disabled?: boolean;
 }) {
-  const classes = `inline-block text-center ${SIZES[size]} ${VARIANTS[variant]} ${className}`;
+  const classes = `inline-block text-center ${SIZES[size]} ${VARIANTS[variant]} ${
+    disabled ? "pointer-events-none opacity-60" : ""
+  } ${className}`;
   const { beginNavigation } = useNavigationStatus();
 
   if (href) {
