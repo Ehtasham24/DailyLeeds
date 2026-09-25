@@ -150,6 +150,7 @@ export default function Contact() {
 
                 <Button
                   type="submit"
+                  arrow={status !== "submitting"}
                   className="mt-5 w-full"
                   disabled={status === "submitting"}
                 >

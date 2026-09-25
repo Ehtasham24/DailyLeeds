@@ -36,14 +36,17 @@ export default function FeatureGrid({
         <motion.div key={item.title} variants={fadeUp}>
           <SpotlightCard
             spotlightColor={spotlightColor}
-            className="flex h-full items-start gap-4 rounded-2xl border border-line bg-light p-[26px]"
+            tilt={5}
+            className="glow-card h-full rounded-3xl border border-line bg-white p-7 shadow-[0_1px_2px_rgba(18,53,127,.04)] transition-shadow duration-300 hover:shadow-[0_24px_50px_-20px_rgba(18,53,127,.25)]"
           >
-            <span className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[9px] bg-green/[.14] text-green">
-              {item.icon}
-            </span>
-            <div>
-              <h3 className="mb-1 text-[1.08rem] font-bold">{item.title}</h3>
-              <p className="text-[.95rem] text-ink-soft">{item.text}</p>
+            <div className="flex items-start gap-4">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-blue/15 to-green/15 text-green transition-transform duration-300 group-hover:scale-110">
+                {item.icon}
+              </span>
+              <div>
+                <h3 className="mb-1.5 text-[1.08rem] font-bold">{item.title}</h3>
+                <p className="text-[.95rem] leading-relaxed text-ink-soft">{item.text}</p>
+              </div>
             </div>
           </SpotlightCard>
         </motion.div>

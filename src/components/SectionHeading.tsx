@@ -1,6 +1,27 @@
 import type { ReactNode } from "react";
 import Reveal from "@/components/Reveal";
 
+export function Eyebrow({
+  children,
+  dark = false,
+}: {
+  children: ReactNode;
+  dark?: boolean;
+}) {
+  return (
+    <span
+      className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[.72rem] font-semibold uppercase tracking-[.14em] ${
+        dark
+          ? "border-white/15 bg-white/[.06] text-[#9CC2F7]"
+          : "border-blue/15 bg-blue/[.06] text-blue"
+      }`}
+    >
+      <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-blue to-green" />
+      {children}
+    </span>
+  );
+}
+
 export default function SectionHeading({
   eyebrow,
   title,
@@ -15,16 +36,10 @@ export default function SectionHeading({
   className?: string;
 }) {
   return (
-    <Reveal className={`mx-auto mb-13 max-w-[640px] text-center ${className}`}>
-      <p
-        className={`text-[.72rem] font-bold uppercase tracking-[.16em] ${
-          dark ? "text-[#7FB0F5]" : "text-blue"
-        }`}
-      >
-        {eyebrow}
-      </p>
+    <Reveal className={`mx-auto mb-14 max-w-[680px] text-center ${className}`}>
+      <Eyebrow dark={dark}>{eyebrow}</Eyebrow>
       <h2
-        className={`mt-2 text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold uppercase tracking-tight ${
+        className={`mt-4 text-balance text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.03em] ${
           dark ? "text-white" : "text-ink"
         }`}
       >
@@ -32,7 +47,7 @@ export default function SectionHeading({
       </h2>
       {description && (
         <p
-          className={`mt-4 text-[1.08rem] ${
+          className={`mx-auto mt-4 max-w-[56ch] text-[1.08rem] leading-relaxed ${
             dark ? "text-muted-navy" : "text-ink-soft"
           }`}
         >

@@ -11,9 +11,9 @@ export default function Logo() {
     <Link
       href="/"
       onClick={() => beginNavigation("/")}
-      className="flex items-center gap-2 text-[1.3rem] font-extrabold tracking-tight text-white"
+      className="flex items-center gap-2 font-display text-[1.25rem] font-extrabold tracking-[-0.03em] text-white"
     >
-      <LogoMark />
+      <LogoMark size={18} />
       <span>
         <span className="text-[#7FB0F5]">Daily</span>
         <span className="text-green">Leads</span>

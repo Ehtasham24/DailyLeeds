@@ -19,7 +19,9 @@ type NavigationContextValue = {
 
 const NavigationContext = createContext<NavigationContextValue | null>(null);
 
-const MIN_VISIBLE_MS = 450;
+// Long enough for the loader's fill animation to visibly read, short
+// enough that navigation still feels quick.
+const MIN_VISIBLE_MS = 800;
 const SAFETY_TIMEOUT_MS = 4000;
 
 /** Next's own loading.tsx only fires for real Suspense boundaries,

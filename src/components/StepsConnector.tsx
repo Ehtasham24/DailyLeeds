@@ -17,7 +17,7 @@ export default function StepsConnector() {
     <div
       ref={ref}
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-[38px] hidden px-[16.5%] md:block"
+      className="pointer-events-none absolute inset-x-0 top-[54px] hidden px-[16.5%] md:block"
     >
       <svg width="100%" height="4" viewBox="0 0 100 1" preserveAspectRatio="none">
         <line

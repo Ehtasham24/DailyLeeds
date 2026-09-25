@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { useNavigationStatus } from "@/components/NavigationProvider";
 import { buttonHover, buttonSpring, buttonTap } from "@/lib/motion";
@@ -11,20 +12,20 @@ const MotionButton = motion.button;
 
 const VARIANTS = {
   primary:
-    "bg-green text-white shadow-[0_8px_20px_rgba(27,180,122,.35)] transition-colors hover:bg-[#159a67]",
+    "btn-shine bg-green text-white shadow-[0_10px_30px_-10px_rgba(27,180,122,.9)] hover:bg-[#17a36e]",
   ghost:
-    "border-[1.5px] border-white/45 text-white transition-colors hover:border-white hover:bg-white/[.08]",
+    "border border-white/20 bg-white/[.06] text-white backdrop-blur hover:border-white/40 hover:bg-white/[.12]",
   outline:
-    "border-[1.5px] border-navy/25 text-navy transition-colors hover:border-navy hover:bg-navy/[.04]",
+    "border border-navy/15 bg-white text-navy shadow-sm hover:border-navy/30",
 } as const;
 
 const SIZES = {
-  md: "rounded-xl px-6 py-[.85rem] font-bold",
-  sm: "rounded-xl px-[1.15rem] py-[.6rem] text-[.9rem] font-bold",
+  md: "px-6 py-3 text-[.95rem]",
+  sm: "px-4 py-2 text-[.85rem]",
 } as const;
 
-/** Every button/link across the site shares this one springy press —
- *  no cursor-following gimmicks, just a consistent, physical feel. */
+/** Every button/link across the site shares this one springy press, a
+ *  light sweep on hover, and (optionally) an arrow that nudges forward. */
 export default function Button({
   children,
   href,
@@ -32,6 +33,7 @@ export default function Button({
   type = "button",
   variant = "primary",
   size = "md",
+  arrow = false,
   className = "",
   disabled = false,
 }: {
@@ -41,13 +43,26 @@ export default function Button({
   type?: "button" | "submit";
   variant?: keyof typeof VARIANTS;
   size?: keyof typeof SIZES;
+  arrow?: boolean;
   className?: string;
   disabled?: boolean;
 }) {
-  const classes = `inline-block text-center ${SIZES[size]} ${VARIANTS[variant]} ${
+  const classes = `group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full font-semibold transition-colors ${SIZES[size]} ${VARIANTS[variant]} ${
     disabled ? "pointer-events-none opacity-60" : ""
   } ${className}`;
   const { beginNavigation } = useNavigationStatus();
+
+  const content = (
+    <>
+      {children}
+      {arrow && (
+        <ArrowRight
+          size={size === "sm" ? 15 : 17}
+          className="transition-transform duration-300 group-hover:translate-x-1"
+        />
+      )}
+    </>
+  );
 
   if (href) {
     return (
@@ -62,7 +77,7 @@ export default function Button({
         transition={buttonSpring}
         className={classes}
       >
-        {children}
+        {content}
       </MotionLink>
     );
   }
@@ -76,7 +91,7 @@ export default function Button({
       transition={buttonSpring}
       className={classes}
     >
-      {children}
+      {content}
     </MotionButton>
   );
 }

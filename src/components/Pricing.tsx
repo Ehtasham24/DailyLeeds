@@ -31,16 +31,21 @@ export default function Pricing() {
           title="One flat plan. Done for you."
         />
 
-        <Reveal delay={0.1} className="mx-auto max-w-[560px]">
+        <Reveal delay={0.1} className="mx-auto max-w-[560px] rounded-[26px] bg-gradient-to-br from-blue/60 via-white/10 to-green/60 p-px shadow-[0_40px_80px_-24px_rgba(4,14,40,.8)]">
           <SpotlightCard
-            spotlightColor="rgba(255,255,255,.16)"
-            tilt={5}
-            className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#193f92] to-[#102c6d] p-10 shadow-[0_30px_70px_rgba(6,20,60,.5)]"
+            spotlightColor="rgba(255,255,255,.12)"
+            tilt={4}
+            className="rounded-[25px] bg-gradient-to-br from-[#193f92] to-[#0f2a66] p-10"
           >
-            <h3 className="text-[1.05rem] uppercase tracking-[.1em] text-muted-navy">
-              Monthly Plan
-            </h3>
-            <div className="mb-6 mt-2 text-[2.2rem] font-extrabold">
+            <div className="flex items-center justify-between">
+              <h3 className="text-[.8rem] font-semibold uppercase tracking-[.16em] text-muted-navy">
+                Monthly plan
+              </h3>
+              <span className="rounded-full bg-green/15 px-3 py-1 text-[.72rem] font-semibold text-green">
+                Done for you
+              </span>
+            </div>
+            <div className="mb-6 mt-3 font-display text-[2.6rem] font-extrabold tracking-[-0.03em]">
               $<span className="opacity-50">___</span>
               <span className="text-base font-semibold opacity-70">
                 /month
@@ -53,7 +58,9 @@ export default function Pricing() {
                   key={f}
                   className="flex items-center gap-[.7rem] text-[#E3ECFC]"
                 >
-                  <Check size={20} className="shrink-0 text-green" />
+                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-green/20 text-green">
+                    <Check size={14} strokeWidth={3} />
+                  </span>
                   {f}
                 </li>
               ))}
@@ -64,7 +71,7 @@ export default function Pricing() {
               spend. Love the results? Then we continue.
             </div>
 
-            <Button href="/contact" className="w-full">
+            <Button href="/contact" arrow className="w-full">
               Start my free week
             </Button>
             <p className="mt-4 text-center text-[.82rem] text-muted-navy">
