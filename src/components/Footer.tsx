@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Mail, Phone } from "lucide-react";
 import Logo from "@/components/Logo";
 import { useNavigationStatus } from "@/components/NavigationProvider";
+import { CONTACT } from "@/lib/content";
 
 const COMPANY = [
   { href: "/how-it-works", label: "How it works" },
@@ -12,9 +13,9 @@ const COMPANY = [
   { href: "/faq", label: "FAQ" },
 ];
 
-const CONTACT = [
-  { href: "mailto:hello@getdailyleads.com", label: "hello@getdailyleads.com", icon: Mail },
-  { href: "tel:+15550000000", label: "(555) 000-0000", icon: Phone },
+const CONTACT_LINKS = [
+  { href: `mailto:${CONTACT.email}`, label: CONTACT.email, icon: Mail },
+  { href: CONTACT.phoneHref, label: CONTACT.phone, icon: Phone },
 ];
 
 export default function Footer() {
@@ -64,7 +65,7 @@ export default function Footer() {
               Contact
             </b>
             <ul className="space-y-3">
-              {CONTACT.map(({ href, label, icon: Icon }) => (
+              {CONTACT_LINKS.map(({ href, label, icon: Icon }) => (
                 <li key={href}>
                   <a
                     href={href}

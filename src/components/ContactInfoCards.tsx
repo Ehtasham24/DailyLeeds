@@ -1,22 +1,26 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { m } from "framer-motion";
 import { Clock, Mail, Phone } from "lucide-react";
 import RevealGroup from "@/components/RevealGroup";
 import SpotlightCard from "@/components/SpotlightCard";
+import { CONTACT } from "@/lib/content";
 import { fadeUp } from "@/lib/motion";
 
-const CARDS = [
+const CARDS: { icon: ReactNode; title: string; text: string; href?: string; sub: string }[] = [
   {
     icon: <Phone size={20} />,
     title: "Call us",
-    text: "(555) 000-0000",
+    text: CONTACT.phone,
+    href: CONTACT.phoneHref,
     sub: "Mon–Fri, 9am–6pm",
   },
   {
     icon: <Mail size={20} />,
     title: "Email us",
-    text: "hello@getdailyleads.com",
+    text: CONTACT.email,
+    href: `mailto:${CONTACT.email}`,
     sub: "We reply within 24 hours",
   },
   {
@@ -40,7 +44,15 @@ export default function ContactInfoCards() {
               {c.icon}
             </span>
             <h3 className="font-bold">{c.title}</h3>
-            <p className="mt-1 text-[.95rem]">{c.text}</p>
+            <p className="mt-1 text-[.95rem]">
+              {c.href ? (
+                <a href={c.href} className="break-words font-medium text-blue hover:underline">
+                  {c.text}
+                </a>
+              ) : (
+                c.text
+              )}
+            </p>
             <p className="mt-1 text-[.8rem] text-ink-soft">{c.sub}</p>
           </SpotlightCard>
         </m.div>

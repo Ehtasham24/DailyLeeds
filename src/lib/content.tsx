@@ -10,6 +10,13 @@ import {
 /** Shared copy used by more than one component (e.g. a full section and
  *  a compact teaser of the same content elsewhere). */
 
+/** Business contact details — shown in the footer and on the contact page. */
+export const CONTACT = {
+  email: "info@daily-leads.online",
+  phone: "(913) 386-5040",
+  phoneHref: "tel:+19133865040",
+};
+
 export const STEPS = [
   {
     num: "1",
