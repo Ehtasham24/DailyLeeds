@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import RevealGroup from "@/components/RevealGroup";
 import { fadeUp } from "@/lib/motion";
 
@@ -13,7 +13,7 @@ export default function Timeline({ steps }: { steps: TimelineStep[] }) {
   return (
     <RevealGroup className="mx-auto flex max-w-[640px] flex-col">
       {steps.map((step, i) => (
-        <motion.div key={step.label} variants={fadeUp} className="flex gap-5">
+        <m.div key={step.label} variants={fadeUp} className="flex gap-5">
           <div className="flex flex-col items-center">
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-r from-blue to-green text-sm font-bold text-white">
               {i + 1}
@@ -29,7 +29,7 @@ export default function Timeline({ steps }: { steps: TimelineStep[] }) {
             <h3 className="mt-1 text-[1.05rem] font-bold">{step.title}</h3>
             <p className="mt-1 text-[.95rem] text-ink-soft">{step.text}</p>
           </div>
-        </motion.div>
+        </m.div>
       ))}
     </RevealGroup>
   );

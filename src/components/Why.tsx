@@ -32,6 +32,7 @@ export default function Why() {
     <section className="bg-white py-20">
       <div className="mx-auto max-w-[1120px] px-6">
         <SectionHeading
+          as="h1"
           eyebrow="Why DailyLeads"
           title="Leads you own, results you can see"
         />

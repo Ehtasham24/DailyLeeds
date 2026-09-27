@@ -1,5 +1,3 @@
-import emailjs from "@emailjs/browser";
-
 // Set in .env.local for dev, and as repo secrets injected at build time
 // for the GitHub Pages deploy — see README "Contact form setup".
 const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
@@ -11,6 +9,13 @@ export const isEmailjsConfigured = Boolean(
   SERVICE_ID && NOTIFY_TEMPLATE_ID && CONFIRM_TEMPLATE_ID && PUBLIC_KEY
 );
 
+/** The SDK is only needed once someone actually fills in the form, so
+ *  it's fetched on demand instead of shipping with the contact page.
+ *  Call early (e.g. on first focus) to have it ready by submit time. */
+export function loadEmailjs() {
+  return import("@emailjs/browser").then((mod) => mod.default);
+}
+
 /** Sends the lead notification (to the site owner) and, best-effort,
  *  the confirmation autoresponse (to the lead) — both straight from
  *  the browser via EmailJS, using the form's own field names as
@@ -20,6 +25,8 @@ export async function sendLeadEmails(form: HTMLFormElement) {
   if (!SERVICE_ID || !NOTIFY_TEMPLATE_ID || !CONFIRM_TEMPLATE_ID || !PUBLIC_KEY) {
     throw new Error("EmailJS is not configured");
   }
+
+  const emailjs = await loadEmailjs();
 
   await emailjs.sendForm(SERVICE_ID, NOTIFY_TEMPLATE_ID, form, {
     publicKey: PUBLIC_KEY,

@@ -1,14 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { useNavigationStatus } from "@/components/NavigationProvider";
 import { buttonHover, buttonSpring, buttonTap } from "@/lib/motion";
 
-const MotionLink = motion.create(Link);
-const MotionButton = motion.button;
+const MotionLink = m.create(Link);
+const MotionButton = m.button;
 
 const VARIANTS = {
   primary:

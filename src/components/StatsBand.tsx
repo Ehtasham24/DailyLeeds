@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Counter from "@/components/Counter";
 import RevealGroup from "@/components/RevealGroup";
 import { fadeUp } from "@/lib/motion";
@@ -22,7 +22,7 @@ export default function StatsBand({
         className="mx-auto grid max-w-[900px] grid-cols-2 gap-x-6 gap-y-10 px-6 md:grid-cols-4"
       >
         {stats.map((s) => (
-          <motion.div key={s.label} variants={fadeUp} className="text-center">
+          <m.div key={s.label} variants={fadeUp} className="text-center">
             <div className="text-[2.2rem] font-extrabold">
               <Counter to={s.value} suffix={s.suffix} />
             </div>
@@ -33,7 +33,7 @@ export default function StatsBand({
             >
               {s.label}
             </p>
-          </motion.div>
+          </m.div>
         ))}
       </RevealGroup>
     </section>

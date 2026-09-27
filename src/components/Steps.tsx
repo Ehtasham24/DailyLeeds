@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import RevealGroup from "@/components/RevealGroup";
 import SectionHeading from "@/components/SectionHeading";
 import SpotlightCard from "@/components/SpotlightCard";
@@ -13,6 +13,7 @@ export default function Steps() {
     <section className="bg-light py-20">
       <div className="mx-auto max-w-[1120px] px-6">
         <SectionHeading
+          as="h1"
           eyebrow="How it works"
           title="Leads in three simple steps"
           description="No dashboards to learn, no marketing to figure out. We handle everything."
@@ -21,7 +22,7 @@ export default function Steps() {
         <RevealGroup className="relative grid grid-cols-1 gap-7 md:grid-cols-3">
           <StepsConnector />
           {STEPS.map((step) => (
-            <motion.div key={step.num} variants={fadeUp}>
+            <m.div key={step.num} variants={fadeUp}>
               <SpotlightCard
                 spotlightColor="rgba(47,125,225,.08)"
                 tilt={5}
@@ -33,7 +34,7 @@ export default function Steps() {
                 <h3 className="mb-2 text-[1.2rem] font-bold">{step.title}</h3>
                 <p className="text-[.98rem] leading-relaxed text-ink-soft">{step.text}</p>
               </SpotlightCard>
-            </motion.div>
+            </m.div>
           ))}
         </RevealGroup>
       </div>

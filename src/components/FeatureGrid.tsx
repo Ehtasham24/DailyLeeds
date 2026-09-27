@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactNode } from "react";
 import RevealGroup from "@/components/RevealGroup";
 import SpotlightCard from "@/components/SpotlightCard";
@@ -33,7 +33,7 @@ export default function FeatureGrid({
       style={{ maxWidth }}
     >
       {items.map((item) => (
-        <motion.div key={item.title} variants={fadeUp}>
+        <m.div key={item.title} variants={fadeUp}>
           <SpotlightCard
             spotlightColor={spotlightColor}
             tilt={5}
@@ -49,7 +49,7 @@ export default function FeatureGrid({
               </div>
             </div>
           </SpotlightCard>
-        </motion.div>
+        </m.div>
       ))}
     </RevealGroup>
   );

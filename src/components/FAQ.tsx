@@ -6,7 +6,7 @@ export default function FAQ() {
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-[1120px] px-6">
-        <SectionHeading eyebrow="Questions" title="Good to know" />
+        <SectionHeading as="h1" eyebrow="Questions" title="Good to know" />
 
         <div className="mx-auto flex max-w-[760px] flex-col gap-11">
           {FAQ_CATEGORIES.map((cat, i) => (

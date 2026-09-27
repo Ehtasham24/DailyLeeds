@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 /** A horizontal line that draws itself in behind the step cards as the
@@ -29,7 +29,7 @@ export default function StepsConnector() {
           strokeWidth="2"
           vectorEffect="non-scaling-stroke"
         />
-        <motion.line
+        <m.line
           x1="0"
           y1="0.5"
           x2="100"

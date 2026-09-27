@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
 import RevealGroup from "@/components/RevealGroup";
@@ -34,7 +34,7 @@ export default function HowItWorksTeaser() {
             className="pointer-events-none absolute left-[17%] right-[17%] top-[46px] hidden h-px bg-gradient-to-r from-blue/0 via-blue/40 to-green/0 md:block"
           />
           {STEPS.map((step) => (
-            <motion.div
+            <m.div
               key={step.num}
               variants={fadeUp}
               className="glow-card relative rounded-3xl border border-line bg-white p-7 text-center shadow-[0_1px_2px_rgba(18,53,127,.04)] transition-shadow duration-300 hover:shadow-[0_24px_50px_-20px_rgba(18,53,127,.25)]"
@@ -44,7 +44,7 @@ export default function HowItWorksTeaser() {
               </span>
               <h3 className="mt-5 text-[1.15rem] font-bold">{step.title}</h3>
               <p className="mt-2 text-[.95rem] leading-relaxed text-ink-soft">{step.text}</p>
-            </motion.div>
+            </m.div>
           ))}
         </RevealGroup>
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import MotionProvider from "@/components/MotionProvider";
 import Nav from "@/components/Nav";
 import { NavigationProvider } from "@/components/NavigationProvider";
 import NavSpinnerOverlay from "@/components/NavSpinnerOverlay";
@@ -48,12 +49,14 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col bg-light font-sans text-ink antialiased">
-        <NavigationProvider>
-          <ScrollProgress />
-          <NavSpinnerOverlay />
-          <Nav />
-          <PageTransition>{children}</PageTransition>
-        </NavigationProvider>
+        <MotionProvider>
+          <NavigationProvider>
+            <ScrollProgress />
+            <NavSpinnerOverlay />
+            <Nav />
+            <PageTransition>{children}</PageTransition>
+          </NavigationProvider>
+        </MotionProvider>
       </body>
     </html>
   );

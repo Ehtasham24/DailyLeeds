@@ -1,9 +1,10 @@
 "use client";
 
-import { type MouseEvent, useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
-  motion,
+  m,
+  useInView,
   useMotionValue,
   useReducedMotion,
   useSpring,
@@ -64,12 +65,18 @@ const JOBS = [
 export default function Hero() {
   const reduceMotion = useReducedMotion();
   const [tick, setTick] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef);
 
+  // Only cycle the feed while someone can actually see it — no re-renders
+  // once the hero is scrolled past or the tab is in the background.
   useEffect(() => {
-    if (reduceMotion) return;
-    const id = setInterval(() => setTick((t) => t + 1), 2800);
+    if (reduceMotion || !inView) return;
+    const id = setInterval(() => {
+      if (!document.hidden) setTick((t) => t + 1);
+    }, 2800);
     return () => clearInterval(id);
-  }, [reduceMotion]);
+  }, [reduceMotion, inView]);
 
   const visible = AGES.map((age, i) => {
     const n = tick - i;
@@ -108,6 +115,7 @@ export default function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       data-hero
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -117,7 +125,7 @@ export default function Hero() {
         aria-hidden
         className="bg-dots-dark pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_30%,transparent_100%)]"
       />
-      <motion.div
+      <m.div
         aria-hidden
         style={glow}
         className="pointer-events-none absolute -right-40 -top-40 -z-10"
@@ -126,7 +134,7 @@ export default function Hero() {
           className="animate-blob h-[620px] w-[620px] rounded-full"
           style={{ background: "radial-gradient(circle, rgba(47,125,225,.4), transparent 65%)" }}
         />
-      </motion.div>
+      </m.div>
       <div
         aria-hidden
         className="animate-blob pointer-events-none absolute -bottom-48 -left-48 -z-10 h-[520px] w-[520px] rounded-full"
@@ -137,48 +145,48 @@ export default function Hero() {
       />
 
       <div className="mx-auto grid max-w-[1120px] items-center gap-16 px-6 md:grid-cols-[1.1fr_.9fr]">
-        <motion.div initial="hidden" animate="show" variants={stagger(0.12, 0.05)}>
-          <motion.div variants={fadeUp}>
+        <m.div initial="hidden" animate="show" variants={stagger(0.12, 0.05)}>
+          <m.div variants={fadeUp}>
             <Eyebrow dark>Local lead generation · USA</Eyebrow>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             variants={stagger(0.06, 0.15)}
             className="mt-6 text-[clamp(2.6rem,6vw,4.4rem)] font-extrabold leading-[1.02] tracking-[-0.04em]"
           >
             {HEADLINE.map((word) => (
-              <motion.span
+              <m.span
                 key={word}
                 variants={wordReveal}
                 className="mr-[0.25em] inline-block"
               >
                 {word}
-              </motion.span>
+              </m.span>
             ))}
-            <motion.span variants={wordReveal} className="inline-block">
+            <m.span variants={wordReveal} className="inline-block">
               —&nbsp;<span className="grad-text-shimmer">first.</span>
-            </motion.span>
-          </motion.h1>
+            </m.span>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={fadeUp}
             className="mt-6 max-w-[40ch] text-[1.15rem] leading-relaxed text-muted-navy"
           >
             Done-for-you lead generation for plumbers, electricians &amp;
             cleaners. At least one qualified customer lead a day — you do the
             jobs, we keep your phone ringing.
-          </motion.p>
+          </m.p>
 
-          <motion.div variants={fadeUp} className="mt-9 flex flex-wrap gap-3">
+          <m.div variants={fadeUp} className="mt-9 flex flex-wrap gap-3">
             <Button href="/contact" arrow>
               Get my free week
             </Button>
             <Button href="/how-it-works" variant="ghost">
               See how it works
             </Button>
-          </motion.div>
+          </m.div>
 
-          <motion.ul variants={fadeUp} className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
+          <m.ul variants={fadeUp} className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
             {CHIPS.map((chip) => (
               <li
                 key={chip}
@@ -190,16 +198,16 @@ export default function Hero() {
                 {chip}
               </li>
             ))}
-          </motion.ul>
-        </motion.div>
+          </m.ul>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="relative"
         >
-          <motion.div
+          <m.div
             style={panel}
             className="relative rounded-3xl border border-white/10 bg-white/[.06] p-5 shadow-[0_40px_80px_-24px_rgba(4,14,40,.8)] backdrop-blur-xl"
           >
@@ -224,7 +232,7 @@ export default function Hero() {
                 {visible.map((lead, i) => {
                   const Icon = lead.icon;
                   return (
-                    <motion.div
+                    <m.div
                       key={lead.key}
                       layout
                       initial={{ opacity: 0, y: -24, scale: 0.96 }}
@@ -252,12 +260,12 @@ export default function Hero() {
                       ) : (
                         <span className="shrink-0 text-[.72rem] text-ink-soft">{lead.age}</span>
                       )}
-                    </motion.div>
+                    </m.div>
                   );
                 })}
               </AnimatePresence>
             </div>
-          </motion.div>
+          </m.div>
 
           <div className="animate-float absolute -top-6 left-10 hidden items-center gap-2 rounded-2xl border border-white/15 bg-navy/70 px-3.5 py-2.5 text-[.8rem] font-medium shadow-xl backdrop-blur-xl sm:flex">
             <BadgeCheck size={16} className="text-green" />
@@ -270,7 +278,7 @@ export default function Hero() {
             <TrendingUp size={16} className="text-[#8DBBFA]" />
             1+ qualified lead daily
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
       <div className="mt-20 border-t border-white/10 py-6 text-[.9rem] font-medium text-muted-navy/80">

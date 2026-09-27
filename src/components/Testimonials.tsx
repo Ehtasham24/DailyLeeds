@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Quote, Star } from "lucide-react";
 import RevealGroup from "@/components/RevealGroup";
 import SectionHeading from "@/components/SectionHeading";
@@ -46,7 +46,7 @@ export default function Testimonials() {
 
         <RevealGroup className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {TESTIMONIALS.map((t) => (
-            <motion.div key={t.name} variants={fadeUp}>
+            <m.div key={t.name} variants={fadeUp}>
               <SpotlightCard
                 spotlightColor="rgba(245,166,35,.08)"
                 tilt={5}
@@ -73,7 +73,7 @@ export default function Testimonials() {
                   </div>
                 </div>
               </SpotlightCard>
-            </motion.div>
+            </m.div>
           ))}
         </RevealGroup>
 

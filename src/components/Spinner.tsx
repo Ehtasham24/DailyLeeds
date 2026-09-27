@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import LogoMark from "@/components/LogoMark";
 
 const RING_MASK =
@@ -19,7 +19,7 @@ export default function Spinner({ size = 72 }: { size?: number }) {
       className="relative grid place-items-center"
       style={{ width: size, height: size }}
     >
-      <motion.div
+      <m.div
         aria-hidden
         className="absolute inset-[14%] rounded-full bg-gradient-to-br from-blue to-green blur-2xl"
         animate={{ opacity: [0.2, 0.5, 0.2], scale: [0.8, 1, 0.8] }}
@@ -28,7 +28,7 @@ export default function Spinner({ size = 72 }: { size?: number }) {
 
       <div aria-hidden className="absolute inset-0 rounded-full border-[3px] border-navy/[.08]" />
 
-      <motion.div
+      <m.div
         aria-hidden
         className="absolute inset-0"
         animate={{ rotate: 360 }}
@@ -44,11 +44,11 @@ export default function Spinner({ size = 72 }: { size?: number }) {
           }}
         />
         <span className="absolute left-1/2 top-[-2px] h-[7px] w-[7px] -translate-x-1/2 rounded-full bg-green shadow-[0_0_12px_2px_rgba(27,180,122,.8)]" />
-      </motion.div>
+      </m.div>
 
       <div className="relative leading-[0]">
         <LogoMark size={mark} className="bg-navy/15" />
-        <motion.div
+        <m.div
           aria-hidden
           className="absolute inset-0"
           animate={{
@@ -61,7 +61,7 @@ export default function Spinner({ size = 72 }: { size?: number }) {
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
           <LogoMark size={mark} />
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

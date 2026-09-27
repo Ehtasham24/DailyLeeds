@@ -28,23 +28,26 @@ export default function SectionHeading({
   description,
   dark = false,
   className = "",
+  as: Heading = "h2",
 }: {
   eyebrow: string;
   title: ReactNode;
   description?: ReactNode;
   dark?: boolean;
   className?: string;
+  /** "h1" when this is the page's main heading (one per page, for SEO). */
+  as?: "h1" | "h2";
 }) {
   return (
     <Reveal className={`mx-auto mb-14 max-w-[680px] text-center ${className}`}>
       <Eyebrow dark={dark}>{eyebrow}</Eyebrow>
-      <h2
+      <Heading
         className={`mt-4 text-balance text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.03em] ${
           dark ? "text-white" : "text-ink"
         }`}
       >
         {title}
-      </h2>
+      </Heading>
       {description && (
         <p
           className={`mx-auto mt-4 max-w-[56ch] text-[1.08rem] leading-relaxed ${

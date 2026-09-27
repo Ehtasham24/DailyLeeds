@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Sparkles, Wrench, Zap, type LucideIcon } from "lucide-react";
 import RevealGroup from "@/components/RevealGroup";
 import SectionHeading from "@/components/SectionHeading";
@@ -55,7 +55,7 @@ export default function Who() {
           {CARDS.map((card) => {
             const Icon = card.icon;
             return (
-              <motion.div key={card.title} variants={fadeUp}>
+              <m.div key={card.title} variants={fadeUp}>
                 <SpotlightCard
                   spotlightColor="rgba(47,125,225,.08)"
                   tilt={5}
@@ -80,7 +80,7 @@ export default function Who() {
                     ))}
                   </ul>
                 </SpotlightCard>
-              </motion.div>
+              </m.div>
             );
           })}
         </RevealGroup>

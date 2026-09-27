@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { CSSProperties, ReactNode } from "react";
 import { stagger, viewport } from "@/lib/motion";
 
@@ -18,7 +18,7 @@ export default function RevealGroup({
   delayChildren?: number;
 }) {
   return (
-    <motion.div
+    <m.div
       className={className}
       style={style}
       initial="hidden"
@@ -27,6 +27,6 @@ export default function RevealGroup({
       variants={stagger(staggerChildren, delayChildren)}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

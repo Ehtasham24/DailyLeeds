@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -62,7 +62,7 @@ export default function Nav() {
                 }`}
               >
                 {active && (
-                  <motion.span
+                  <m.span
                     layoutId="nav-active"
                     className="absolute inset-0 -z-10 rounded-full bg-white/[.12] ring-1 ring-white/10"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -92,21 +92,21 @@ export default function Nav() {
 
       <AnimatePresence>
         {open && (
-          <motion.nav
+          <m.nav
             initial={{ opacity: 0, y: -10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto mt-2 max-w-[1120px] origin-top rounded-2xl border border-white/10 bg-navy/95 p-3 shadow-[0_24px_50px_-12px_rgba(6,20,60,.6)] backdrop-blur-xl md:hidden"
           >
-            <motion.div
+            <m.div
               initial="hidden"
               animate="show"
               variants={stagger(0.05, 0.05)}
               className="flex flex-col"
             >
               {LINKS.map((link) => (
-                <motion.div key={link.href} variants={fadeUp}>
+                <m.div key={link.href} variants={fadeUp}>
                   <Link
                     href={link.href}
                     onClick={() => beginNavigation(link.href)}
@@ -118,15 +118,15 @@ export default function Nav() {
                   >
                     {link.label}
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
-              <motion.div variants={fadeUp} className="mt-2">
+              <m.div variants={fadeUp} className="mt-2">
                 <Button href="/contact" arrow className="w-full">
                   Get Started
                 </Button>
-              </motion.div>
-            </motion.div>
-          </motion.nav>
+              </m.div>
+            </m.div>
+          </m.nav>
         )}
       </AnimatePresence>
     </header>

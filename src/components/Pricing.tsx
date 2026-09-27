@@ -26,6 +26,7 @@ export default function Pricing() {
       />
       <div className="relative mx-auto max-w-[1120px] px-6">
         <SectionHeading
+          as="h1"
           dark
           eyebrow="Simple pricing"
           title="One flat plan. Done for you."

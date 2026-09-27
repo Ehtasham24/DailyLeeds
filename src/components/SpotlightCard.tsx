@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  motion,
+  m,
   useMotionTemplate,
   useMotionValue,
   useSpring,
@@ -45,18 +45,18 @@ export default function SpotlightCard({
   }
 
   return (
-    <motion.div
+    <m.div
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
       className={`group relative [transform-style:preserve-3d] ${className}`}
     >
-      <motion.div
+      <m.div
         aria-hidden
         style={{ background: spotlightBg }}
         className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
       <div style={{ transform: "translateZ(24px)" }}>{children}</div>
-    </motion.div>
+    </m.div>
   );
 }
