@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { preconnect } from "react-dom";
+import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import Button from "@/components/Button";
 import ContactInfoCards from "@/components/ContactInfoCards";
+import { useNavigationStatus } from "@/components/NavigationProvider";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import { isEmailjsConfigured, loadEmailjs, sendLeadEmails } from "@/lib/emailjs";
@@ -54,6 +56,7 @@ type Status = "idle" | "submitting" | "success" | "error" | "cooldown";
 
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
+  const { beginNavigation } = useNavigationStatus();
   const [waitSeconds, setWaitSeconds] = useState(0);
   const renderedAt = useRef(0);
 
@@ -218,6 +221,18 @@ export default function Contact() {
                 >
                   {status === "submitting" ? "Sending…" : "Get my free week"}
                 </Button>
+
+                <p className="mt-4 text-center text-[.8rem] text-ink-soft">
+                  By submitting, you agree to our{" "}
+                  <Link
+                    href="/privacy"
+                    onClick={() => beginNavigation("/privacy")}
+                    className="font-medium text-blue underline-offset-2 hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                  . We&apos;ll only contact you by phone or email.
+                </p>
               </m.form>
             )}
           </AnimatePresence>

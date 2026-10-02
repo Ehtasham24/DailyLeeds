@@ -15,6 +15,7 @@ export const CONTACT = {
   email: "info@daily-leads.online",
   phone: "(913) 386-5040",
   phoneHref: "tel:+19133865040",
+  site: "daily-leads.online",
 };
 
 export const STEPS = [

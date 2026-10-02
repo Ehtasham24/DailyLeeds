@@ -11,6 +11,7 @@ const COMPANY = [
   { href: "/why-us", label: "Why us" },
   { href: "/pricing", label: "Pricing" },
   { href: "/faq", label: "FAQ" },
+  { href: "/privacy", label: "Privacy Policy" },
 ];
 
 const CONTACT_LINKS = [
